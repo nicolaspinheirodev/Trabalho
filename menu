@@ -1,0 +1,118 @@
+print("Seja bem-vindo à pizzaria da UNINTER! Segue abaixo nosso cardápio!")
+print("")
+print("      | Tamanho | Pizza salgada |   Pizza doce |")
+print("      |---------|---------------|--------------|")
+print("      |    P    |     R$30.00   |    R$34.00   |")
+print("      |    M    |     R$45.00   |    R$48.00   |")
+print("      |    G    |     R$60.00   |    R$66.00   |")
+print("")
+print("      |Refrigerantes 2L         |    R$15.00   |")
+print("")
+print("      |ATENÇAÕ: NÃO REALIZAMOS ENTREGAS ACIMA DE 25KM|")
+print("")
+total = 0
+qtd_pizza = 0
+qtd_refri = 0
+
+while True:
+
+    # escolher item
+    item = input("Entre com o item (pizza/refrigerante): ").lower()
+
+    if item == "pizza":
+
+        # verificar limite pizza
+        if qtd_pizza >= 5:
+            print("Limite máximo de pizzas atingido (5).")
+            continue
+
+        # sabor
+        while True:
+            sabor = input("Escolha o sabor (doce/salgada): ").lower()
+            if sabor in ["doce", "salgada"]:
+                break
+            else:
+                print("Sabor inválido. Tente novamente.")
+
+        # tamanho
+        while True:
+            tamanho = input("Escolha o tamanho (p/m/g): ").lower()
+            if tamanho in ["p", "m", "g"]:
+                break
+            else:
+                print("Tamanho inválido. Tente novamente.")
+
+        # preço pizza
+        if tamanho == "p" and sabor == "salgada":
+            preco = 30
+        elif tamanho == "p" and sabor == "doce":
+            preco = 34
+        elif tamanho == "m" and sabor == "salgada":
+            preco = 45
+        elif tamanho == "m" and sabor == "doce":
+            preco = 48
+        elif tamanho == "g" and sabor == "salgada":
+            preco = 60
+        else:
+            preco = 66
+
+        total += preco
+        qtd_pizza += 1
+
+        print(f"Pizza {sabor} tamanho {tamanho.upper()} adicionada - R${preco:.2f}")
+
+    elif item == "refrigerante":
+
+        # verificar limite refrigerante
+        if qtd_refri >= 2:
+            print("Limite máximo de refrigerantes atingido (2).")
+            continue
+
+        preco = 15
+        total += preco
+        qtd_refri += 1
+
+        print("Refrigerante 2L adicionado - R$15.00")
+
+    else:
+        print("Item inválido. Tente novamente.")
+        continue
+
+    # perguntar se quer mais
+    while True:
+        mais = input("Deseja pedir mais alguma coisa? (s/n): ").lower()
+        if mais in ["s", "n"]:
+            break
+        else:
+            print("Digite apenas s ou n")
+
+    if mais == "n":
+        break
+
+
+# distância entrega
+while True:
+    distancia = float(input("Digite a distância para entrega (km): "))
+
+    if distancia > 25:
+        print("Não podemos realizar essa entrega.")
+        continue
+    else:
+        break
+
+# cálculo entrega
+if distancia <= 5:
+    entrega = 0
+elif distancia <= 10:
+    entrega = 10
+else:
+    entrega = 10 + (distancia - 10) * 1.10
+
+total += entrega
+
+print()
+print("           ------ RESUMO DO PEDIDO ------")
+print(f"          |  Pizzas: {qtd_pizza}                  |")
+print(f"          | Refrigerantes: {qtd_refri}            |")
+print(f"          |  Entrega: R${entrega:}            |")
+print(f"          |  TOTAL: R${total:}              |")
